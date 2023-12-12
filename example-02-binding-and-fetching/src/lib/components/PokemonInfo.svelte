@@ -35,6 +35,9 @@
    */
   let pokePromise = Promise.resolve({ name: "...", dexEntry: "..." });
   onMount(() => (pokePromise = getRandomPokemon()));
+
+  // let pokePromise = getRandomPokemon();
+  
 </script>
 
 {#await pokePromise}

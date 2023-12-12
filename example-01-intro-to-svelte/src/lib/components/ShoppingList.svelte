@@ -1,5 +1,5 @@
 <script>
-  export let list = [];
+  export let list = ["default list1", "default list2"];
 </script>
 
 <h2>My shopping list</h2>

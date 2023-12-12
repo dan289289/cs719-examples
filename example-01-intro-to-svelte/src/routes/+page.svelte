@@ -9,6 +9,7 @@
   import Counter from "$lib/components/Counter.svelte";
   import CounterSquared from "$lib/components/CounterSquared.svelte";
   import ShoppingList from "$lib/components/ShoppingList.svelte";
+  import AboutCourse from "../lib/components/AboutCourse.svelte";
 
   /**
    * This function will be called when the button below is clicked.
@@ -29,6 +30,8 @@
 	supplying the values of the "name" and "interest" props. -->
 <AboutMe name="Andrew" interest="Pokemon" />
 
+<AboutCourse courseName="CS719" /> <!-- if courseName is not supplied, it will be "unknown" -->
+
 <h2>Buttons are cool! Let's click some buttons!</h2>
 <div class="buttonPanel">
   <!-- This button has a "click" event handler defined, which will call the "onButtonClick"
@@ -45,7 +48,9 @@
   <CounterSquared />
 </div>
 
-<ShoppingList list={[]} />
+<ShoppingList />
+<!-- to add a different list can do list={["a", "b", "c"]}-->
+<ShoppingList list={["a", "b", "c"]} />
 
 <!-- An "internal" style. CSS defined here will only apply to this component. -->
 <style>
