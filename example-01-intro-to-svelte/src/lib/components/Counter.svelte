@@ -1,4 +1,6 @@
 <script>
+    import CounterSquared from "./CounterSquared.svelte";
+
   /**
    * We will display this value as part of the button's text below.
    *
@@ -12,7 +14,14 @@
 </script>
 
 <!-- The button displays the "count" value above, and increments it when clicked. -->
-<button on:click={() => count++}>The count is: {count}</button>
+
+<div id="number-container">
+  <button id="plus-btn" on:click={() => count++}>+</button>
+  <input id="counter-text" type="text" value={count} readonly />
+  <button id="minus-btn" on:click={() => count--}>-</button>
+</div>
+
+<CounterSquared count={count} />
 
 <!-- Here's some random CSS. It will only apply to this component. -->
 <style>
@@ -24,10 +33,11 @@
     box-shadow: 2px 2px 2px rgba(128, 128, 128, 0.5);
     color: white;
     font-weight: bold;
+    width: 10%;
   }
 
   button:hover {
-    background-color: rgb(78, 181, 67);
+    background-color: rgb(97, 165, 90);
   }
 
   button:active {
@@ -35,4 +45,24 @@
     translate: 0;
     box-shadow: 1px 1px 2px rgba(128, 128, 128, 0.5);
   }
+
+  #number-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+    gap: 10px;
+  }
+
+  #counter-text {
+    font-size: 20px;
+    font-weight: bold;
+    color:black;
+    background-color: rgb(201, 232, 182);
+    width: 20%;
+    text-align: center;
+  }
+
+  
+
 </style>

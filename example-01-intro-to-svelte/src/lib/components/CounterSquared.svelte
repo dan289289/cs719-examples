@@ -1,5 +1,5 @@
 <script>
-  let count = 0;
+  export let count = 0;
 
   /**
    * This is a reactive statement. It will run after all the other code in the <script>
@@ -12,4 +12,4 @@
 </script>
 
 <!-- The button displays the "squared" value above, and increments "count" when clicked. -->
-<button on:click={() => count++}>The count SQUARED!!! is: {squared}</button>
+<p>The count SQUARED!!! is: {squared}</p>

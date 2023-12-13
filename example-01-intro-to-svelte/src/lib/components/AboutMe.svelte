@@ -4,8 +4,8 @@
    *
    * Code in this script block runs when the component first loads.
    */
-  export let name = "Andrew";
-  export let interest;
+  export let name = "[Unspecified name]";
+  export let interest = "[Unspecified interest]";
 </script>
 
 <!-- The "HTML" section starts here. We can use a mix of HTML,

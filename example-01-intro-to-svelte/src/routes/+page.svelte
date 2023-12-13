@@ -29,6 +29,7 @@
 <!-- Shows how we can use the AboutMe component imported above,
 	supplying the values of the "name" and "interest" props. -->
 <AboutMe name="Andrew" interest="Pokemon" />
+<AboutMe/>
 
 <AboutCourse courseName="CS719" /> <!-- if courseName is not supplied, it will be "unknown" -->
 
@@ -45,7 +46,7 @@
   <!-- Here's another button - this time, as a Svelte component with some extra logic defined :) -->
   <Counter />
 
-  <CounterSquared />
+  <!-- <CounterSquared /> -->
 </div>
 
 <ShoppingList />
