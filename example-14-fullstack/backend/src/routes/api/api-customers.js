@@ -19,10 +19,10 @@ const router = express.Router();
  *
  * Otherwise, a 422 (Unprocessable Content) error response will be returned.
  */
-router.post("/", (req, res) => {
+router.post("/", async (req, res) => {
   try {
     // Create the new customer, create a location based on its id, and send everything back with a 201.
-    const newCustomer = createCustomer(req.body);
+    const newCustomer = await createCustomer(req.body);
     const location = `/api/customers/${newCustomer.id}`;
     return res.status(201).location(location).json(newCustomer);
   } catch (err) {
@@ -41,12 +41,12 @@ router.post("/", (req, res) => {
  * If the "search" query param is defined, the returned list will be filtered to only those
  * customers whose names or email addresses match the search.
  */
-router.get("/", (req, res) => {
+router.get("/", async (req, res) => {
   const search = req.query.search;
 
-  if (!search) return res.json(retrieveCustomers());
+  if (!search) return res.json(await retrieveCustomers());
 
-  return res.json(retrieveCustomersSearch(search));
+  return res.json(await retrieveCustomersSearch(search));
 });
 
 /**
@@ -70,11 +70,13 @@ router.get("/:customerId", useCustomerFromPath, (req, res) => {
  *
  * Uses the useCustomerFromPath() middleware to handle sending a 404 if the customer is not found.
  */
-router.patch("/:customerId", useCustomerFromPath, (req, res) => {
+router.patch("/:customerId", useCustomerFromPath, async (req, res) => {
   try {
-    updateCustomer(req.customer.id, req.body);
-    return res.sendStatus(204);
+    const isUpdated = await updateCustomer(req.customer.id, req.body);
+    if (!isUpdated) return res.sendStatus(404); // 404 if there was no customer to update
+    return res.sendStatus(204); // 204 if all successful.
   } catch (err) {
+    // Handle error case where the provided update data in the request body is invalid.
     return res.status(422).json(err.errors);
   }
 });
@@ -83,22 +85,9 @@ router.patch("/:customerId", useCustomerFromPath, (req, res) => {
  * DELETE /api/customers/:customerId - Deletes the customer with the given id, if found. Either way,
  * returns a 204 (No Content) response.
  */
-router.delete("/:customerId", (req, res) => {
-  deleteCustomer(req.params.customerId, false);
+router.delete("/:customerId", async (req, res) => {
+  await deleteCustomer(req.params.customerId);
   return res.sendStatus(204);
 });
-
-// Customer orders routes
-import customerOrdersRoutes from "./api-customer-orders.js";
-
-/**
- * Setup our own middlware. Add the customer orders routes above so, for example,
- * /api/customers/4/orders will be dealing with the orders for customer number 4.
- *
- * Because every one of these orders routes needs to know about a customer, we are using the
- * useCustomerFromPath middleware to add the customer to req.customer, or return a 404 if
- * the customer is not found.
- */
-router.use("/:customerId/orders", useCustomerFromPath, customerOrdersRoutes);
 
 export default router;
