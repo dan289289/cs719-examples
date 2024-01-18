@@ -1,5 +1,7 @@
 <script>
-  export let customer;
+  export let customer; // it is declaring a *prop*, 
+  // meaning when `CustomerRow` is used, it will be passed a `customer` prop
+  // see CustomerTable.svelte where it is used
 </script>
 
 <tr>

@@ -1,6 +1,9 @@
 <script>
   import CustomerRow from "./CustomerRow.svelte";
-
+  // when we imported CustomerRow.svelte, as described in
+  // CustomerRow.svelte, we will be able to use the
+  // CustomerRow component in this file, and pass it a
+  // `customers` prop
   export let customers;
 </script>
 
